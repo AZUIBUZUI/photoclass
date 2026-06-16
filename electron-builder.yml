@@ -1,0 +1,21 @@
+appId: com.photoclass.app
+productName: PhotoClass
+directories:
+  output: release
+  buildResources: resources
+win:
+  target:
+    - target: nsis
+      arch: [x64]
+  signAndEditExecutable: false
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: PhotoClass
+  uninstallDisplayName: PhotoClass
+asar: true
+extraResources:
+  - from: node_modules/better-sqlite3/build/Release
+    to: better-sqlite3/Release

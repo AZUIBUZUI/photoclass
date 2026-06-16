@@ -1,0 +1,41 @@
+{
+  "name": "photoclass",
+  "version": "1.0.0",
+  "description": "审美样片分类软件 — 批量导入、快捷键分类、建立审美参考库",
+  "author": "PhotoClass",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "package": "electron-vite build && electron-builder",
+    "lint": "eslint src/",
+    "postinstall": "echo dependencies installed"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.7.0",
+    "sharp": "^0.33.5",
+    "p-queue": "^8.1.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.28.0",
+    "react-window": "^1.8.10",
+    "react-virtualized-auto-sizer": "^1.0.24",
+    "zustand": "^4.5.5",
+    "recharts": "^2.15.0",
+    "react-markdown": "^9.0.1",
+    "allotment": "^1.20.2"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-vite": "^2.3.0",
+    "electron-builder": "^25.1.8",
+    "@electron/rebuild": "^3.6.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^3.4.16",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "eslint": "^9.16.0",
+    "prettier": "^3.4.2"
+  }
+}
