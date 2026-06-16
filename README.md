@@ -1,5 +1,5 @@
 # PhotoClass — 审美样片分类管理工具
-
+## 主包代码水平一般，这个时claude code + deepseekv4制作界面ai味道有点浓，但是功能没问题，欢迎各位大佬批评指正
 批量导入图片 → 快捷键打标签 → 建立审美参考库 → 📊 统计分析
 
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://github.com)
