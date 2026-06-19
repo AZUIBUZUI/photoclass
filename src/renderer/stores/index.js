@@ -83,6 +83,9 @@ const useStore = create((set, get) => ({
   // ==================== UI ====================
   toasts: [],
   showHistogram: false,
+  sidebarCollapsed: false,
+
+  setSidebarCollapsed: (v) => set({ sidebarCollapsed: v }),
 
   addToast: (msg, type) => {
     const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);

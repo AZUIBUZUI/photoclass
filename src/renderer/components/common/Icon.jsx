@@ -1,7 +1,7 @@
 import React from 'react';
 
 const paths = {
-  'app-logo': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-6.5l-3-3 1.41-1.41L11 10.67l4.59-4.58L17 7.5l-6 6z',
+  'app-logo': 'M4 2h4v4H4V2z M4 7h4v11H4V7z M8 2h6v4H8V2z M14 2h4v7h-4V2z M8 11h6v4H8v-4z M14 9h4v7h-4V9z M21 3h3v3h-3V3z M21 7h3v10h-3V7z M21 18h3v3h-3v-3z M18 3h3v18h-3V3z M18 3h2v3h-2V3z M18 18h2v3h-2v-3z',
   'camera': 'M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z',
   'empty': 'M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7l-3 3.72L9 13l-3 4h12l-4-5z',
   'import': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z',
@@ -29,6 +29,10 @@ const paths = {
   'success': 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z',
   'trash': 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z',
   'external': 'M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z',
+  'chevron-left': 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z',
+  'chevron-right': 'M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z',
+  'panel-left-close': 'M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 16H8V5h10v14z',
+  'panel-left-open': 'M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 16H8V5h10v14zM6 5v14l-2-2V7l2-2z',
 };
 
 export default function Icon({ name, size = 20, className = '', ...props }) {
@@ -36,7 +40,7 @@ export default function Icon({ name, size = 20, className = '', ...props }) {
   if (!d) return null;
 
   const allPaths = d.split(/ (?=M)/);
-  const strokePaths = ['app-logo', 'empty', 'import', 'browse', 'compare', 'search', 'add-photo', 'tag', 'note'];
+  const strokePaths = ['empty', 'import', 'browse', 'compare', 'search', 'add-photo', 'tag', 'note', 'chevron-left', 'chevron-right', 'panel-left-close', 'panel-left-open'];
   const useStroke = strokePaths.includes(name);
 
   const stroke = useStroke ? 'currentColor' : 'none';

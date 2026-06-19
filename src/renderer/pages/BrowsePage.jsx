@@ -1,9 +1,9 @@
 import React, { useEffect, useCallback, useRef } from 'react';
-import { Allotment } from 'allotment';
-import 'allotment/dist/style.css';
 import useStore from '../stores';
-import ThumbnailGrid from '../components/grid/ThumbnailGrid';
 import ImageViewer from '../components/viewer/ImageViewer';
+import RatingStrip from '../components/viewer/RatingStrip';
+import TagSidePanel from '../components/tagging/TagSidePanel';
+import Filmstrip from '../components/grid/Filmstrip';
 import FilterBar from '../components/filter/FilterBar';
 import DropZone from '../components/common/DropZone';
 import { useShortcuts } from '../features/shortcuts/useShortcuts';
@@ -118,16 +118,28 @@ export default function BrowsePage() {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       {showFilterBar && <FilterBar onRefresh={load} />}
-      <div className="flex-1 overflow-hidden">
-        {fullscreen ? (
+
+      {fullscreen ? (
+        /* Fullscreen: only the image viewer, no chrome */
+        <div className="flex-1 overflow-hidden">
           <ImageViewer />
-        ) : (
-          <Allotment defaultSizes={[300, 400]}>
-            <div className="h-full bg-surface-100"><ThumbnailGrid /></div>
-            <div className="h-full bg-white"><ImageViewer /></div>
-          </Allotment>
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          {/* Main area: viewer + rating strip (center) + tag panel (right) */}
+          <div className="flex-1 flex overflow-hidden min-h-0">
+            <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+              <ImageViewer />
+              <RatingStrip imageId={currentId} />
+            </div>
+            <TagSidePanel imageId={currentId} />
+          </div>
+
+          {/* Bottom filmstrip */}
+          <Filmstrip />
+        </>
+      )}
+
       <DropZone onDrop={doImportFiles} />
     </div>
   );

@@ -1,6 +1,6 @@
 {
   "name": "photoclass",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "审美样片分类软件 — 批量导入、快捷键分类、建立审美参考库",
   "author": "PhotoClass",
   "main": "./out/main/index.js",
