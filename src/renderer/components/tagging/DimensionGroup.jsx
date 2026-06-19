@@ -9,9 +9,9 @@ export default function DimensionGroup({ dimension, tags, activeTagIds, onTagTog
           className="w-2.5 h-2.5 rounded-full shrink-0"
           style={{ backgroundColor: dimension.color }}
         />
-        <span className="text-xs font-medium text-slate-400">{dimension.name}</span>
+        <span className="text-xs font-medium text-surface-900">{dimension.name}</span>
         {dimension.is_multiselect === 0 && (
-          <span className="text-2xs text-slate-600">(单选)</span>
+          <span className="text-2xs text-surface-700">(单选)</span>
         )}
       </div>
       <div className="flex flex-wrap gap-1.5">

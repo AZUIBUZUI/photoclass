@@ -82,6 +82,7 @@ const useStore = create((set, get) => ({
 
   // ==================== UI ====================
   toasts: [],
+  showHistogram: false,
 
   addToast: (msg, type) => {
     const id = Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
@@ -89,6 +90,7 @@ const useStore = create((set, get) => ({
     setTimeout(() => set(s => ({ toasts: s.toasts.filter(t => t.id !== id) })), 2500);
   },
   removeToast: (id) => set(s => ({ toasts: s.toasts.filter(t => t.id !== id) })),
+  setShowHistogram: (v) => set({ showHistogram: v }),
 }));
 
 export default useStore;

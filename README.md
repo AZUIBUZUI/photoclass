@@ -3,18 +3,22 @@
 批量导入图片 → 快捷键打标签 → 建立审美参考库 → 📊 统计分析
 
 [![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://github.com)
-[![Electron](https://img.shields.io/badge/Electron-33-8b5cf6)](https://www.electronjs.org/)
+[![Electron](https://img.shields.io/badge/Electron-33-007AFF)](https://www.electronjs.org/)
+[![Version](https://img.shields.io/badge/version-1.1.0-34C759)]()
 
 ## ✨ 功能特点
 
-- **批量导入**：支持文件夹递归导入、多文件选取，自动去重
+- **批量导入**：支持文件夹递归导入、多文件选取、拖放导入，自动去重
 - **快捷键分类**：3 个标签维度（构图/光影/情绪）× 8 个标签，键盘一键标注
-- **评分系统**：数字键 1-5 评分星星，支持收藏
+- **评分系统**：数字键 1-5 评分星星，支持收藏、未分类筛选
 - **多维度筛选**：按标签、评分、收藏状态组合筛选
 - **统计看板**：标签使用频率图表 + 评分分布图表 + 分类进度
-- **图片浏览**：网格缩略图 / 全屏查看器，支持缩放
+- **图片浏览**：虚拟化缩略图网格 / 大图查看器，支持缩放平移、RGB 直方图
+- **联动定位**：大图查看时缩略图网格自动滚动定位
+- **多图对比**：2/4 张并排对比，预览图选择器，同步缩放平移
 - **导出功能**：复制/移动文件、HTML 画册、CSV 数据表格
 - **自定义扩展**：维度、标签、快捷键均可自定义
+- **iOS 26 风格 UI**：浅色主题、毛玻璃效果、SF Symbols 风格图标、柔和阴影
 
 ## 🎮 默认快捷键
 
@@ -36,11 +40,11 @@
 
 ### 方式一：安装程序（推荐）
 
-从 [Releases](../../releases) 下载 `PhotoClass_Setup_1.0.0.exe`，双击安装。
+从 [Releases](../../releases) 下载 `PhotoClass Setup x.x.x.exe`，双击安装。
 
 ### 方式二：便携版
 
-从 [Releases](../../releases) 下载 `release-win-unpacked.zip`，解压到任意目录，运行 `PhotoClass.exe`。
+解压 `release/win-unpacked/` 文件夹，运行 `PhotoClass.exe`。
 
 ### 方式三：开发者运行
 
@@ -70,9 +74,9 @@ npm run package
 | 桌面框架 | Electron 33 |
 | 前端 | React 18 + React Router + Recharts |
 | 状态管理 | Zustand |
-| 样式 | Tailwind CSS |
+| 样式 | Tailwind CSS（浅色主题） |
 | 数据库 | SQLite (better-sqlite3) |
-| 图片处理 | Sharp |
+| 图像处理 | Sharp |
 | 构建工具 | electron-vite + electron-builder |
 
 ## 📁 项目结构
@@ -87,20 +91,30 @@ photoclass/
 │   ├── preload/         # 预加载脚本
 │   ├── renderer/        # 前端 UI
 │   │   ├── pages/       # 页面：浏览/对比/统计/设置
-│   │   ├── components/  # 组件：网格/标签/评分/过滤
+│   │   ├── components/  # 组件：网格/标签/评分/过滤/查看器/通用
 │   │   ├── stores/      # Zustand 状态
-│   │   └── features/    # 快捷键/路由
+│   │   ├── hooks/       # 自定义 Hooks
+│   │   └── features/    # 快捷键
 │   └── shared/          # 共享常量 & 默认配置
-├── resources/           # 安装包资源
-└── electron-builder.yml # 打包配置
+├── resources/           # 安装包资源（图标等）
+├── electron-builder.yml # 打包配置
+├── muster.md            # AI 助手项目文档
+└── CLAUDE.md            # Claude Code 项目技能文件
 ```
+
+## 📝 更新日志
+
+### v1.1.0 (2026-06-18)
+- 🎨 全新 iOS 26 浅色主题 UI（毛玻璃、大圆角、柔和阴影）
+- 📊 新增 RGB 直方图显示
+- 🔗 缩略图与预览图联动定位
+- ⚖ 对比界面升级：预览图选择器、同步缩放平移、更换/移除操作
+- 🎯 SVG 图标系统替换 emoji
+- 📄 新增 CLAUDE.md / muster.md 项目文档
+
+### v1.0.0
+- 初始版本：导入、分类、浏览、统计、导出
 
 ## 📄 License
 
 MIT License
-
-## 🔗 相关链接
-
-- [Electron](https://www.electronjs.org/)
-- [React](https://react.dev/)
-- [Recharts](https://recharts.org/)

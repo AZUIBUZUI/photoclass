@@ -2,11 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---- CSS Variables / Dark Theme Tokens ---- */
+/* ---- CSS Variables ---- */
 :root {
   --titlebar-height: 36px;
   --sidebar-width: 260px;
   --statusbar-height: 28px;
+}
+
+/* ---- Glass morphism utility ---- */
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+  }
 }
 
 /* ---- Reset & Base ---- */
@@ -23,13 +37,15 @@ html, body, #root {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei',
-    'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI',
+    'Microsoft YaHei', 'PingFang SC', 'Hiragino Sans GB', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #F2F2F7;
+  color: #3A3A3C;
 }
 
-/* ---- Scrollbar Styling ---- */
+/* ---- Scrollbar Styling (light) ---- */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -40,12 +56,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #475569;
+  background: #D1D1D6;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #AEAEB2;
 }
 
 /* ---- Drag Region for Custom Title Bar ---- */
@@ -59,17 +75,17 @@ body {
 
 /* ---- Toast Animations ---- */
 @keyframes toast-in {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(8px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .toast-enter {
-  animation: toast-in 0.2s ease-out;
+  animation: toast-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---- Tag Chip Transitions ---- */
 .tag-chip {
-  transition: all 0.15s ease;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tag-chip:active {
@@ -78,33 +94,35 @@ body {
 
 /* ---- Focus styles ---- */
 *:focus-visible {
-  outline: 2px solid #8b5cf6;
+  outline: 2px solid #007AFF;
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* ---- Split pane (allotment) dark theme ---- */
+/* ---- Split pane (allotment) light theme ---- */
 .allotment-modifier_splitter {
-  background: #1e293b !important;
-  border-color: #0f172a !important;
+  background: #E5E5EA !important;
+  border-color: #D1D1D6 !important;
 }
 
 .allotment-modifier_splitter:hover {
-  background: #3b82f6 !important;
+  background: #007AFF !important;
 }
 
-/* ---- Recharts dark theme overrides ---- */
+/* ---- Recharts light theme overrides ---- */
 .recharts-text {
-  fill: #94a3b8 !important;
+  fill: #8E8E93 !important;
 }
 
 .recharts-cartesian-grid-horizontal line,
 .recharts-cartesian-grid-vertical line {
-  stroke: #334155 !important;
+  stroke: #E5E5EA !important;
 }
 
 .recharts-default-tooltip {
-  background: #1e293b !important;
-  border: 1px solid #475569 !important;
-  border-radius: 6px !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E5E5EA !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  color: #3A3A3C !important;
 }

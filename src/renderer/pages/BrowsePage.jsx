@@ -33,7 +33,6 @@ export default function BrowsePage() {
 
   useShortcuts();
 
-  // Load settings on mount
   useEffect(() => {
     if (!open) return;
     (async () => {
@@ -46,7 +45,6 @@ export default function BrowsePage() {
     })();
   }, [open]);
 
-  // Load images
   const load = useCallback(async () => {
     if (!open) return;
     const r = await window.api.invoke('image:list', {
@@ -58,7 +56,6 @@ export default function BrowsePage() {
     });
     if (r.data) {
       setImages(r.data);
-      // 记忆功能：无过滤条件时尝试恢复上次浏览位置
       if (!restoredRef.current && r.data.length) {
         restoredRef.current = true;
         if (!hasFilters) {
@@ -78,18 +75,15 @@ export default function BrowsePage() {
 
   useEffect(() => { load(); }, [load]);
 
-  // Auto-select first image
   useEffect(() => {
     if (images.length && !currentId) setCurrentId(images[0].id);
   }, [images]);
 
-  // 记忆功能：保存当前浏览位置到项目数据库
   useEffect(() => {
     if (!open || !currentId || !restoredRef.current) return;
     window.api.invoke('settings:set', 'lastImageId', String(currentId));
   }, [currentId, open]);
 
-  // Import files (drag & drop)
   async function doImportFiles(filePaths) {
     setImporting(true);
     setImportProgress({ current: 0, total: filePaths.length });
@@ -102,7 +96,6 @@ export default function BrowsePage() {
     load();
   }
 
-  // Import folder (sidebar button)
   async function doImportFolder(folderPath) {
     setImporting(true);
     const unsub = window.api.onImportProgress(p => setImportProgress(p));
@@ -114,7 +107,6 @@ export default function BrowsePage() {
     load();
   }
 
-  // Listen for sidebar import
   useEffect(() => {
     const h = e => doImportFolder(e.detail);
     window.addEventListener('import-folder', h);
@@ -131,8 +123,8 @@ export default function BrowsePage() {
           <ImageViewer />
         ) : (
           <Allotment defaultSizes={[300, 400]}>
-            <div className="h-full bg-surface-950"><ThumbnailGrid /></div>
-            <div className="h-full bg-surface-900"><ImageViewer /></div>
+            <div className="h-full bg-surface-100"><ThumbnailGrid /></div>
+            <div className="h-full bg-white"><ImageViewer /></div>
           </Allotment>
         )}
       </div>

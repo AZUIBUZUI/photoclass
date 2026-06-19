@@ -22,7 +22,6 @@ export default function TagPanel({ imageId }) {
       const dimsData = dr.data;
       setDims(dimsData);
 
-      // Load tags per dimension
       const tbd = {};
       for (const d of dimsData) {
         if (d.is_rating) continue;
@@ -31,7 +30,6 @@ export default function TagPanel({ imageId }) {
       }
       setTagsByDim(tbd);
 
-      // Active tags on this image
       const ids = new Set((tr.data || []).map(t => t.id));
       setActiveIds(ids);
     } catch (e) { console.error('TagPanel load error:', e); }
@@ -55,21 +53,21 @@ export default function TagPanel({ imageId }) {
       <QuickTagBar dims={tagDims} tagsByDim={tagsByDim} activeIds={activeIds} onToggle={toggle} />
       {tagDims.map(d => (
         <div key={d.id}>
-          <div className="flex items-center gap-1.5 mb-1">
+          <div className="flex items-center gap-1.5 mb-1.5">
             <div className="w-2 h-2 rounded-full shrink-0" style={{ background: d.color }} />
-            <span className="text-xs font-medium text-slate-400">{d.name}</span>
+            <span className="text-xs font-medium text-surface-900">{d.name}</span>
           </div>
           <div className="flex flex-wrap gap-1">
             {(tagsByDim[d.id] || []).map(t => (
               <button
                 key={t.id}
                 onClick={() => toggle(t.id)}
-                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border transition-colors
-                  ${activeIds.has(t.id) ? 'text-white border-transparent' : 'text-slate-400 border-surface-700 hover:border-surface-500'}`}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border transition-all duration-200 tag-chip
+                  ${activeIds.has(t.id) ? 'text-white border-transparent shadow-sm' : 'text-surface-800 border-surface-300 hover:border-surface-700 hover:bg-surface-100'}`}
                 style={activeIds.has(t.id) ? { background: d.color } : {}}
                 title={t.shortcut_key || ''}
               >
-                <span className={`font-mono text-2xs ${activeIds.has(t.id) ? 'opacity-70' : 'text-slate-600'}`}>
+                <span className={`font-mono text-2xs ${activeIds.has(t.id) ? 'opacity-70' : 'text-surface-700'}`}>
                   {t.shortcut_key}
                 </span>
                 {t.name}

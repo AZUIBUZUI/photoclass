@@ -15,11 +15,11 @@ export function createMainWindow() {
     minWidth: 1024,
     minHeight: 680,
     title: 'PhotoClass',
-    backgroundColor: '#0f172a',
+    backgroundColor: '#F2F2F7',
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: '#0f172a',
-      symbolColor: '#94a3b8',
+      color: '#F2F2F7',
+      symbolColor: '#3A3A3C',
       height: 36,
     },
     webPreferences: {

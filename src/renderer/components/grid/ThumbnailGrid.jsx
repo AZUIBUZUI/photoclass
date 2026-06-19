@@ -1,9 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { FixedSizeGrid } from 'react-window';
 import AutoSizer from 'react-virtualized-auto-sizer';
 import useStore from '../../stores';
 import ThumbnailCell from './ThumbnailCell';
 import GridToolbar from './GridToolbar';
+import Icon from '../common/Icon';
 
 export default function ThumbnailGrid() {
   const images = useStore(s => s.images);
@@ -14,6 +15,8 @@ export default function ThumbnailGrid() {
   const toggleSelect = useStore(s => s.toggleSelect);
   const clearSelection = useStore(s => s.clearSelection);
 
+  const gridRef = useRef(null);
+  const colsRef = useRef(1);
   const rowH = cellSize + 28;
 
   const onClick = useCallback((id, e) => {
@@ -29,10 +32,19 @@ export default function ThumbnailGrid() {
     setCurrentId(id);
   }, [currentId, images]);
 
+  useEffect(() => {
+    if (!currentId || !gridRef.current) return;
+    const idx = images.findIndex(img => img.id === currentId);
+    if (idx < 0) return;
+    const row = Math.floor(idx / colsRef.current);
+    const col = idx % colsRef.current;
+    gridRef.current.scrollToItem({ rowIndex: row, columnIndex: col, align: 'smart' });
+  }, [currentId, images.length]);
+
   if (!images.length) {
     return (
-      <div className="h-full flex flex-col items-center justify-center text-slate-500">
-        <div className="text-5xl mb-3">📭</div>
+      <div className="h-full flex flex-col items-center justify-center text-surface-700">
+        <Icon name="empty" size={48} className="mb-3 text-surface-400" />
         <p className="text-sm">拖拽图片到此处或点击导入</p>
       </div>
     );
@@ -47,8 +59,9 @@ export default function ThumbnailGrid() {
             const cols = Math.max(1, Math.floor((width + 4) / (cellSize + 4)));
             const rows = Math.ceil(images.length / cols);
             const cw = (width - (cols - 1) * 4) / cols;
+            colsRef.current = cols;
             return (
-              <FixedSizeGrid columnCount={cols} columnWidth={cw} rowCount={rows} rowHeight={rowH}
+              <FixedSizeGrid ref={gridRef} columnCount={cols} columnWidth={cw} rowCount={rows} rowHeight={rowH}
                 width={width} height={height} overscanRowCount={2}
                 itemData={{ images, cols, cw, cellSize, currentId, selectedIds, onClick }}>
                 {ThumbnailCell}

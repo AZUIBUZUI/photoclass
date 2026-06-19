@@ -1,5 +1,6 @@
 import React from 'react';
 import useStore from '../stores';
+import Icon from '../components/common/Icon';
 
 const KEYS = [
   ['1', '评分 1★'], ['2', '评分 2★'], ['3', '评分 3★'], ['4', '评分 4★'], ['5', '评分 5★'],
@@ -9,9 +10,9 @@ const KEYS = [
 ];
 
 const DIMS = [
-  { name: '构图', color: '#8b5cf6', keys: 'Ctrl+1~8', tags: '三分法 对称 引导线 框架 留白 对角线 中心 散点' },
-  { name: '光影', color: '#f59e0b', keys: 'Alt+1~8', tags: '顺光 侧光 逆光 柔光 硬光 剪影 低调 高调' },
-  { name: '情绪', color: '#06b6d4', keys: 'Ctrl+Shift+1~8', tags: '宁静 热烈 忧郁 神秘 欢快 庄重 孤独 温暖' },
+  { name: '构图', color: '#007AFF', keys: 'Ctrl+1~8', tags: '三分法 对称 引导线 框架 留白 对角线 中心 散点' },
+  { name: '光影', color: '#FF9F0A', keys: 'Alt+1~8', tags: '顺光 侧光 逆光 柔光 硬光 剪影 低调 高调' },
+  { name: '情绪', color: '#34C759', keys: 'Ctrl+Shift+1~8', tags: '宁静 热烈 忧郁 神秘 欢快 庄重 孤独 温暖' },
 ];
 
 export default function SettingsPage() {
@@ -22,24 +23,26 @@ export default function SettingsPage() {
   const addToast = useStore(s => s.addToast);
 
   return (
-    <div className="h-full overflow-y-auto p-6 bg-surface-950">
-      <h2 className="text-xl font-bold text-slate-100 mb-6">⚙ 设置</h2>
+    <div className="h-full overflow-y-auto p-6 bg-surface-100">
+      <h2 className="text-xl font-bold text-surface-900 mb-6 flex items-center gap-2">
+        <Icon name="settings" size={22} /> 设置
+      </h2>
 
       {/* Toggles */}
       <section className="mb-8">
-        <h3 className="text-sm font-semibold text-slate-300 mb-3 pb-2 border-b border-surface-800">偏好</h3>
-        <div className="flex items-center justify-between py-2">
-          <div><div className="text-sm text-slate-300">打标签后自动跳下一张</div></div>
+        <h3 className="text-sm font-semibold text-surface-800 mb-3 pb-2 border-b border-surface-200">偏好</h3>
+        <div className="flex items-center justify-between py-2.5">
+          <div><div className="text-sm text-surface-900">打标签后自动跳下一张</div></div>
           <button onClick={async () => {
             const v = !autoAdvance; setAutoAdvance(v);
             await window.api.invoke('settings:set', 'autoAdvance', String(v));
           }}
-            className={`w-11 h-6 rounded-full transition-colors relative ${autoAdvance ? 'bg-accent-500' : 'bg-surface-700'}`}>
-            <div className={`w-4 h-4 bg-white rounded-full absolute top-1 transition-all ${autoAdvance ? 'left-6' : 'left-1'}`} />
+            className={`w-11 h-6 rounded-full transition-colors relative ${autoAdvance ? 'bg-accent-500' : 'bg-surface-300'}`}>
+            <div className={`w-4 h-4 bg-white rounded-full absolute top-1 shadow-sm transition-all ${autoAdvance ? 'left-6' : 'left-1'}`} />
           </button>
         </div>
-        <div className="py-2">
-          <div className="text-sm text-slate-300 mb-2">缩略图大小: {cellSize}px</div>
+        <div className="py-2.5">
+          <div className="text-sm text-surface-900 mb-2">缩略图大小: {cellSize}px</div>
           <input type="range" min="100" max="400" step="20" value={cellSize}
             onChange={e => setCellSize(Number(e.target.value))}
             onMouseUp={async () => { await window.api.invoke('settings:set', 'gridCellSize', String(cellSize)); addToast('已保存', 'success'); }}
@@ -49,14 +52,14 @@ export default function SettingsPage() {
 
       {/* Dimensions */}
       <section className="mb-8">
-        <h3 className="text-sm font-semibold text-slate-300 mb-3 pb-2 border-b border-surface-800">分类维度</h3>
+        <h3 className="text-sm font-semibold text-surface-800 mb-3 pb-2 border-b border-surface-200">分类维度</h3>
         {DIMS.map(d => (
-          <div key={d.name} className="flex items-start gap-3 px-3 py-2 mb-1 bg-surface-900 rounded-lg border border-surface-800">
+          <div key={d.name} className="flex items-start gap-3 px-4 py-3 mb-1.5 bg-white rounded-xl border border-surface-200 shadow-ios">
             <div className="w-3 h-3 rounded-full mt-1 shrink-0" style={{ background: d.color }} />
             <div>
-              <span className="text-sm text-slate-300 font-medium">{d.name}</span>
-              <span className="ml-2 text-2xs text-slate-500 font-mono">{d.keys}</span>
-              <div className="text-2xs text-slate-600 mt-0.5">{d.tags}</div>
+              <span className="text-sm text-surface-900 font-medium">{d.name}</span>
+              <span className="ml-2 text-2xs text-surface-800 font-mono">{d.keys}</span>
+              <div className="text-2xs text-surface-700 mt-0.5">{d.tags}</div>
             </div>
           </div>
         ))}
@@ -64,12 +67,12 @@ export default function SettingsPage() {
 
       {/* Shortcut reference */}
       <section className="mb-8">
-        <h3 className="text-sm font-semibold text-slate-300 mb-3 pb-2 border-b border-surface-800">快捷键速查</h3>
+        <h3 className="text-sm font-semibold text-surface-800 mb-3 pb-2 border-b border-surface-200">快捷键速查</h3>
         <div className="grid grid-cols-2 gap-x-6 gap-y-1">
           {KEYS.map(([k, v]) => (
-            <div key={k} className="flex items-center justify-between py-1">
-              <span className="text-sm text-slate-400">{v}</span>
-              <kbd className="px-1.5 py-0.5 bg-surface-800 text-xs text-slate-300 rounded border border-surface-700 font-mono">{k}</kbd>
+            <div key={k} className="flex items-center justify-between py-1.5">
+              <span className="text-sm text-surface-800">{v}</span>
+              <kbd className="px-1.5 py-0.5 bg-surface-200 text-xs text-surface-900 rounded-md border border-surface-300 font-mono">{k}</kbd>
             </div>
           ))}
         </div>
@@ -77,8 +80,8 @@ export default function SettingsPage() {
 
       {/* Migrate old projects */}
       <section>
-        <h3 className="text-sm font-semibold text-slate-300 mb-3 pb-2 border-b border-surface-800">维护</h3>
-        <p className="text-2xs text-slate-500 mb-2">如果打开的是旧项目，标签维度可能不正确。点击升级以移除旧维度并更新快捷键。</p>
+        <h3 className="text-sm font-semibold text-surface-800 mb-3 pb-2 border-b border-surface-200">维护</h3>
+        <p className="text-2xs text-surface-700 mb-2">如果打开的是旧项目，标签维度可能不正确。点击升级以移除旧维度并更新快捷键。</p>
         <button
           onClick={async () => {
             const c = await window.api.invoke('dialog:confirm', '将移除非构图/光影/情绪/评分的维度，并更新所有快捷键。确定？', '升级项目');
@@ -87,9 +90,9 @@ export default function SettingsPage() {
             if (r.error) { addToast('升级失败: ' + r.error, 'error'); return; }
             addToast(`已移除: ${r.data.removed.join(', ') || '无'}，保留: ${r.data.kept.join(', ')}`, 'success');
           }}
-          className="px-4 py-2 bg-amber-500/10 border border-amber-500/30 text-amber-400 text-sm rounded-lg hover:bg-amber-500/20 transition-colors"
+          className="px-4 py-2 bg-ios-orange/10 border border-ios-orange/30 text-ios-orange text-sm rounded-xl hover:bg-ios-orange/20 transition-colors flex items-center gap-1.5"
         >
-          🔄 升级旧项目
+          <Icon name="refresh" size={16} /> 升级旧项目
         </button>
       </section>
     </div>

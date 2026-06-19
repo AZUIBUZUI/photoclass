@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-// Simple context menu that appears at mouse position
 export default function ContextMenu({ items, x, y, onClose }) {
   const menuRef = useRef(null);
 
@@ -23,19 +22,18 @@ export default function ContextMenu({ items, x, y, onClose }) {
     };
   }, [onClose]);
 
-  // Adjust position to stay within viewport
   const adjustedX = Math.min(x, window.innerWidth - 200);
   const adjustedY = Math.min(y, window.innerHeight - items.length * 36);
 
   return (
     <div
       ref={menuRef}
-      className="fixed z-[100] min-w-[160px] bg-surface-800 border border-surface-700 rounded-lg shadow-xl py-1"
+      className="fixed z-[100] min-w-[160px] glass-strong border border-surface-300 rounded-xl shadow-ios-md py-1"
       style={{ left: adjustedX, top: adjustedY }}
     >
       {items.map((item, idx) => (
         item.separator ? (
-          <div key={`sep-${idx}`} className="my-1 border-t border-surface-700" />
+          <div key={`sep-${idx}`} className="my-1 border-t border-surface-200" />
         ) : (
           <button
             key={item.label || idx}
@@ -47,17 +45,17 @@ export default function ContextMenu({ items, x, y, onClose }) {
             className={`
               w-full text-left px-3 py-1.5 text-sm flex items-center gap-2 transition-colors
               ${item.disabled
-                ? 'text-slate-600 cursor-not-allowed'
+                ? 'text-surface-700 cursor-not-allowed'
                 : item.danger
-                  ? 'text-red-400 hover:bg-red-500/10'
-                  : 'text-slate-300 hover:bg-surface-700'
+                  ? 'text-ios-red hover:bg-ios-red/8'
+                  : 'text-surface-900 hover:bg-surface-200'
               }
             `}
           >
             {item.icon && <span className="text-base">{item.icon}</span>}
             <span>{item.label}</span>
             {item.shortcut && (
-              <span className="ml-auto text-2xs text-slate-500">{item.shortcut}</span>
+              <span className="ml-auto text-2xs text-surface-800">{item.shortcut}</span>
             )}
           </button>
         )

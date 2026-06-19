@@ -20,17 +20,17 @@ export default function CompareView({ imageIds, cols }) {
     setImages(results);
   }
 
-  const gridCols = cols === 4 ? 'grid-cols-2' : 'grid-cols-2';
-  const gridRows = cols === 4 ? 'grid-rows-2' : 'grid-rows-1';
-
-  // Fill empty slots
   const slots = [];
   for (let i = 0; i < cols; i++) {
     slots.push(images[i] || null);
   }
 
   return (
-    <div className={`h-full grid ${gridCols} ${gridRows} gap-1 p-1 bg-surface-800`}>
+    <div className={`h-full grid gap-1 p-1 bg-surface-200`}
+      style={{
+        gridTemplateColumns: `repeat(${cols === 4 ? 2 : 2}, 1fr)`,
+        gridTemplateRows: cols === 4 ? '1fr 1fr' : '1fr',
+      }}>
       {slots.map((img, idx) => (
         <CompareCell
           key={idx}

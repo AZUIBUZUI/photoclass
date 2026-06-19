@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Compact shortcut overview grouped by dimension
 export default function QuickTagBar({ dims, tagsByDim, activeIds, onToggle }) {
   const groups = dims.map(d => ({
     dim: d,
@@ -11,7 +10,7 @@ export default function QuickTagBar({ dims, tagsByDim, activeIds, onToggle }) {
 
   return (
     <div>
-      <div className="text-2xs text-slate-600 mb-1.5">快捷键速查</div>
+      <div className="text-2xs text-surface-700 mb-1.5">快捷键速查</div>
       <div className="space-y-1">
         {groups.map(({ dim, tags }) => (
           <div key={dim.id} className="flex items-start gap-1.5">
@@ -26,13 +25,13 @@ export default function QuickTagBar({ dims, tagsByDim, activeIds, onToggle }) {
                 <span
                   key={t.id}
                   onClick={() => onToggle(t.id)}
-                  className={`cursor-pointer inline-flex items-center gap-0.5 px-1 rounded text-2xs border transition-all
+                  className={`cursor-pointer inline-flex items-center gap-0.5 px-1.5 rounded-md text-2xs border transition-all duration-200
                     ${activeIds.has(t.id)
-                      ? 'text-white border-transparent'
-                      : 'text-slate-500 border-surface-800 hover:border-surface-600'}`}
+                      ? 'text-white border-transparent shadow-sm'
+                      : 'text-surface-800 border-surface-300 hover:border-surface-700'}`}
                   style={activeIds.has(t.id) ? { background: dim.color } : {}}
                 >
-                  <kbd className={`font-mono ${activeIds.has(t.id) ? 'opacity-70' : 'text-slate-600'}`}>
+                  <kbd className={`font-mono ${activeIds.has(t.id) ? 'opacity-70' : 'text-surface-700'}`}>
                     {t.shortcut_key}
                   </kbd>
                   {t.name}

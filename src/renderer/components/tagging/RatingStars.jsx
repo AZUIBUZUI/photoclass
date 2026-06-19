@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useStore from '../../stores';
+import Icon from '../common/Icon';
 
 export default function RatingStars({ imageId }) {
   const [rating, setRating] = useState(0);
@@ -7,7 +8,6 @@ export default function RatingStars({ imageId }) {
   const addToast = useStore(s => s.addToast);
   const images = useStore(s => s.images);
 
-  // Read from store (updated by shortcuts), fallback to DB on image change
   useEffect(() => {
     if (!imageId) return;
     const img = images.find(i => i.id === imageId);
@@ -15,7 +15,6 @@ export default function RatingStars({ imageId }) {
       setRating(img.rating || 0);
       setFav(img.is_favorite === 1);
     } else {
-      // First load — fetch from DB
       (async () => {
         try {
           const r = await window.api.invoke('image:get', imageId);
@@ -46,7 +45,7 @@ export default function RatingStars({ imageId }) {
           <button
             key={s}
             onClick={() => setRate(rating === s ? 0 : s)}
-            className={`text-lg transition-colors ${s <= rating ? 'text-amber-400 hover:text-amber-300' : 'text-slate-700 hover:text-slate-500'}`}
+            className={`text-lg transition-all duration-150 ${s <= rating ? 'text-ios-orange hover:scale-110' : 'text-surface-300 hover:text-surface-700'}`}
             title={`${s}星`}
           >
             ★
@@ -55,10 +54,10 @@ export default function RatingStars({ imageId }) {
       </div>
       <button
         onClick={toggleFav}
-        className={`text-lg transition-all ${fav ? 'text-red-400 scale-110' : 'text-slate-700 hover:text-slate-400'}`}
+        className={`text-lg transition-all duration-150 ${fav ? 'text-ios-red scale-110' : 'text-surface-300 hover:text-ios-red'}`}
         title={fav ? '取消收藏' : '收藏'}
       >
-        ♥
+        <Icon name={fav ? 'heart-filled' : 'heart'} size={18} />
       </button>
     </div>
   );

@@ -9,7 +9,7 @@ export default function AppShell({ children }) {
   const open = useStore(s => s.isProjectOpen);
 
   return (
-    <div className="h-full w-full flex flex-col bg-surface-950">
+    <div className="h-full w-full flex flex-col bg-surface-100">
       <TitleBar />
       <div className="flex-1 flex overflow-hidden" style={{ height: 'calc(100% - 36px)' }}>
         {open && <Sidebar />}

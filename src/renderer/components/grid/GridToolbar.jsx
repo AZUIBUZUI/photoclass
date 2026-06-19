@@ -1,5 +1,6 @@
 import React from 'react';
 import useStore from '../../stores';
+import Icon from '../common/Icon';
 
 const SORTS = [
   { v: 'created_at', l: '导入时间' },
@@ -25,21 +26,24 @@ export default function GridToolbar() {
   const hasFilters = filterTagIds.length > 0;
 
   return (
-    <div className="flex items-center justify-between px-3 py-1.5 bg-surface-900 border-b border-surface-800 shrink-0 gap-2">
+    <div className="flex items-center justify-between px-3 py-1.5 bg-white border-b border-surface-200 shrink-0 gap-2">
       <div className="flex items-center gap-2">
         <select value={sortBy} onChange={e => setSortBy(e.target.value)}
-          className="px-2 py-1 bg-surface-800 border border-surface-700 rounded text-xs text-slate-300">
+          className="px-2 py-1 bg-surface-100 border border-surface-300 rounded-lg text-xs text-surface-900 focus:outline-none focus:border-accent-500">
           {SORTS.map(s => <option key={s.v} value={s.v}>{s.l}</option>)}
         </select>
         <button onClick={() => setSortDir(sortDir === 'asc' ? 'desc' : 'asc')}
-          className="px-2 py-1 bg-surface-800 border border-surface-700 rounded text-xs text-slate-400">{sortDir === 'asc' ? '↑' : '↓'}</button>
-        <button onClick={() => setShowFilter(!showFilter)}
-          className={`px-2 py-1 border rounded text-xs ${showFilter || hasFilters ? 'bg-accent-500/10 border-accent-500/30 text-accent-400' : 'bg-surface-800 border-surface-700 text-slate-400'}`}>
-          🔍 {hasFilters ? `(${filterTagIds.length})` : ''}
+          className="px-2 py-1 bg-surface-100 border border-surface-300 rounded-lg text-xs text-surface-800 hover:bg-surface-200 transition-colors">
+          <Icon name={sortDir === 'asc' ? 'sort-up' : 'sort-down'} size={14} />
         </button>
-        {hasFilters && <button onClick={clearFilters} className="px-2 py-1 text-xs text-slate-500 hover:text-red-400">清除</button>}
+        <button onClick={() => setShowFilter(!showFilter)}
+          className={`px-2 py-1 border rounded-lg text-xs transition-all duration-200 ${showFilter || hasFilters ? 'bg-accent-500/10 border-accent-500/30 text-accent-500' : 'bg-surface-100 border-surface-300 text-surface-800 hover:bg-surface-200'}`}>
+          <Icon name="filter" size={14} className="inline mr-0.5" />
+          {hasFilters ? `(${filterTagIds.length})` : ''}
+        </button>
+        {hasFilters && <button onClick={clearFilters} className="px-2 py-1 text-xs text-ios-red hover:bg-ios-red/10 rounded-lg transition-colors">清除</button>}
       </div>
-      <div className="flex items-center gap-2 text-2xs text-slate-500">
+      <div className="flex items-center gap-2 text-2xs text-surface-800">
         <input type="range" min="100" max="400" step="20" value={cellSize}
           onChange={e => setCellSize(Number(e.target.value))} className="w-20 accent-accent-500" />
         <span>{cellSize}px · {total} 张{sel > 0 ? ` / ${sel} 选` : ''}</span>

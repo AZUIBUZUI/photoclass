@@ -5,10 +5,10 @@ export default function TagChip({ tag, isActive, onClick, dimensionColor, shortc
     <button
       onClick={onClick}
       className={`
-        tag-chip inline-flex items-center gap-1 px-2 py-1 rounded-full text-xs border
+        tag-chip inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs border transition-all duration-200
         ${isActive
-          ? 'text-white border-transparent'
-          : 'text-slate-400 border-surface-700 hover:border-surface-600 hover:text-slate-300'
+          ? 'text-white border-transparent shadow-sm'
+          : 'text-surface-800 border-surface-300 hover:border-surface-700 hover:bg-surface-100'
         }
       `}
       style={isActive ? { backgroundColor: dimensionColor } : {}}
@@ -16,7 +16,7 @@ export default function TagChip({ tag, isActive, onClick, dimensionColor, shortc
     >
       {tag.name}
       {shortcutKey && (
-        <span className={`text-2xs ${isActive ? 'opacity-70' : 'text-slate-600'}`}>
+        <span className={`text-2xs ${isActive ? 'opacity-70' : 'text-surface-700'}`}>
           {shortcutKey}
         </span>
       )}

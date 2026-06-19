@@ -1,6 +1,7 @@
 ﻿import { ipcMain, dialog, shell, app } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs';
+import sharp from 'sharp';
 import { IPC } from '../../shared/ipcChannels.js';
 import { getMainWindow } from '../windows.js';
 import { getRegistryDb, openProjectDb, closeDb } from '../db/connection.js';
@@ -497,6 +498,36 @@ export function registerAllHandlers() {
     currentProjectDb.prepare(`UPDATE image SET is_favorite = CASE WHEN is_favorite = 1 THEN 0 ELSE 1 END, updated_at = datetime('now') WHERE id = ?`).run(imageId);
     const img = currentProjectDb.prepare('SELECT is_favorite FROM image WHERE id = ?').get(imageId);
     return { data: img?.is_favorite === 1 };
+  });
+
+  ipcMain.handle(IPC.IMAGE_GET_HISTOGRAM, async (_event, imagePath) => {
+    if (!imagePath) return { error: 'No image path' };
+    try {
+      const { data, info } = await sharp(imagePath)
+        .resize(512, 512, { fit: 'inside' })
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+
+      const bins = { red: new Uint32Array(256), green: new Uint32Array(256), blue: new Uint32Array(256) };
+      const channels = info.channels;
+      for (let i = 0; i < data.length; i += channels) {
+        bins.red[data[i]]++;
+        bins.green[data[i + 1]]++;
+        bins.blue[data[i + 2]]++;
+      }
+
+      let max = 0;
+      const red = Array.from(bins.red);
+      const green = Array.from(bins.green);
+      const blue = Array.from(bins.blue);
+      for (let j = 0; j < 256; j++) {
+        max = Math.max(max, red[j], green[j], blue[j]);
+      }
+
+      return { data: { red, green, blue, max } };
+    } catch (err) {
+      return { error: err.message };
+    }
   });
 
   // ---- ANNOTATIONS ----

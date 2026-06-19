@@ -21,6 +21,7 @@ export const IPC = {
   IMAGE_BATCH_DELETE: 'image:batchDelete',
   IMAGE_UPDATE_RATING: 'image:updateRating',
   IMAGE_TOGGLE_FAVORITE: 'image:toggleFavorite',
+  IMAGE_GET_HISTOGRAM: 'image:getHistogram',
 
   THUMBNAIL_GET_PATH: 'thumbnail:getPath',
   THUMBNAIL_GENERATE_BATCH: 'thumbnail:generateBatch',

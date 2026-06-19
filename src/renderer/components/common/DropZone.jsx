@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useStore from '../../stores';
+import Icon from './Icon';
 
 export default function DropZone({ onDrop }) {
   const [drag, setDrag] = useState(false);
@@ -30,22 +31,22 @@ export default function DropZone({ onDrop }) {
   if (!drag && !importing) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-surface-950/80 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-sm">
       {importing ? (
         <div className="text-center">
-          <div className="text-3xl mb-3 animate-pulse">⏳</div>
-          <p className="text-lg text-slate-200 mb-2">导入中...</p>
-          <div className="w-64 h-2 bg-surface-800 rounded-full overflow-hidden">
-            <div className="h-full bg-accent-500 rounded-full transition-all"
+          <div className="w-10 h-10 mx-auto mb-3 border-3 border-accent-500 border-t-transparent rounded-full animate-spin" />
+          <p className="text-base font-medium text-surface-900 mb-3">导入中...</p>
+          <div className="w-64 h-2 bg-surface-200 rounded-full overflow-hidden">
+            <div className="h-full bg-accent-500 rounded-full transition-all duration-300"
               style={{ width: progress.total ? `${Math.round(progress.current / progress.total * 100)}%` : '0%' }} />
           </div>
-          <p className="text-sm text-slate-500 mt-2">{progress.current} / {progress.total}</p>
+          <p className="text-sm text-surface-800 mt-2">{progress.current} / {progress.total}</p>
         </div>
       ) : (
         <div className="text-center">
-          <div className="text-5xl mb-4">📥</div>
-          <p className="text-xl text-slate-200 mb-1">拖放图片到此处导入</p>
-          <p className="text-sm text-slate-500">JPG / PNG / WebP / TIFF / GIF</p>
+          <Icon name="import" size={48} className="text-accent-500 mx-auto mb-4" />
+          <p className="text-xl font-medium text-surface-900 mb-1">拖放图片到此处导入</p>
+          <p className="text-sm text-surface-800">JPG / PNG / WebP / TIFF / GIF</p>
         </div>
       )}
     </div>
